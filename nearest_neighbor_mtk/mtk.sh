@@ -188,23 +188,6 @@ if [ $N_MEM_OBJECTS -gt 0 ]; then
   echo ''
 fi
 
-##################################
-# Convert MTK model to CSV table #
-##################################
-# MTK will create 2 objects per distance analysis and append them to the end of the model
-# The first will be the connecting lines (this is what I'm interested in)
-# The second are the midpoints on these lines
-# For  now, I'm not looking at vRNP--other membrane distances, so I'm just exporting vRNP--vRNP and vRNP--HA distances
-PYTHON_BIN='/opt/anaconda3/bin/python'
-MTK_TO_CSV_SCRIPT="$(dirname $0)/mtk_to_csv.py"
-
-# Get the newly created object number of the lines connecting the nearest neighbors
-# The same for all created models, so I'll just fetch it for one of the created models
-mapfile -t MTK_OBJECTS < <( imodinfo -h "$MOD_VRNPS" | grep -B 1 --no-group-separator '^NAME:  Wimp no. ' | grep OBJECT | cut -f 2 -d ' ')
-MTK_OBJECT="${MTK_OBJECTS[-2]}"
-
-eval "$PYTHON_BIN" "$MTK_TO_CSV_SCRIPT" "$MOD_HA" "$MOD_OTHER" "$MOD_VRNPS" "$MOD_HA_SHIFTED" "$MOD_OTHER_SHIFTED" "$MOD_VRNPS_SHIFTED"
-
 echo "################"
 echo "Done with $MODEL"
 echo "################"
