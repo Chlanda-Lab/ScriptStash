@@ -1,2 +1,7 @@
 */.ipynb_checkpoints
+**/__pycache__
+
+# Nearest neighbor MTK things
 nearest_neighbor_mtk/**/mtk
+nearest_neighbor_mtk/*.svg
+nearest_neighbor_mtk/*.csv
